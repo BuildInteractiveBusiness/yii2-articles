@@ -15,7 +15,11 @@
         "yiisoft/yii2": "*",
         "robot72/yii2-components": ">=0.1.0",
         "robot72/yii2-url-alias": ">=0.1.0",
-        "robot72/yii2-sitemap": "dev-master"
+        "robot72/yii2-sitemap": "dev-master",
+        "kartik-v/yii2-widget-activeform": "v1.4.*",
+        "kartik-v/yii2-widget-fileinput": "v1.0.*",
+        "kartik-v/yii2-widget-datetimepicker": "v1.4.*",
+        "vova07/yii2-imperavi-widget": "1.2.*"        
     },
     "autoload"   : {
         "psr-4": {
