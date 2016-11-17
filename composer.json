@@ -14,7 +14,8 @@
         "php": ">=5.3.0",
         "yiisoft/yii2": "*",
         "robot72/yii2-components": ">=0.1.0",
-        "robot72/yii2-url-alias": ">=0.1.0"
+        "robot72/yii2-url-alias": ">=0.1.0",
+        "robot72/yii2-sitemap": "dev-master"
     },
     "autoload"   : {
         "psr-4": {
