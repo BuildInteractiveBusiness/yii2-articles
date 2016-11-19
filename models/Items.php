@@ -7,7 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\Inflector;
 use yii\helpers\Url;
-use himiklab\sitemap\behaviors\SitemapBehavior;
+use robot72\modules\sitemap\behaviors\SitemapBehavior;
+use robot72\modules\urlalias\models\UrlRule;
 //use dosamigos\transliterator\TransliteratorHelper;
 
 /**
@@ -46,7 +47,11 @@ use himiklab\sitemap\behaviors\SitemapBehavior;
  */
 class Items extends ActiveRecord {
 
-    public function behaviors() {
+    const DELETED = 1;
+    const NOT_DELETED = 0;
+    
+    public function behaviors() 
+    {
         return [
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
@@ -81,7 +86,8 @@ class Items extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName() 
+    {
         return 'article_items';
     }
 
@@ -107,7 +113,7 @@ class Items extends ActiveRecord {
             }
         }],
             [['alias'], 'unique'],
-            [['alias'], 'unique', 'targetClass' => \fg\UrlAlias\models\base\UrlRule::className(), 'targetAttribute' => 'slug', 'on' => ['create']],
+            [['alias'], 'unique', 'targetClass' => UrlRule::className(), 'targetAttribute' => 'slug', 'on' => ['create']],
                 //[['alias'], 'unique', 'targetClass' => \app\modules\services\models\Items::className(), 'targetAttribute' => 'alias'],
                 //[['alias'], 'unique', 'targetClass' => \app\modules\analytics\models\Items::className(), 'targetAttribute' => 'alias'],
                 //[['alias'], 'required', 'enableClientValidation' => false],
@@ -151,8 +157,13 @@ class Items extends ActiveRecord {
         ];
     }
 
-    // Delete Image From Category
-    public function deleteImage() {
+    /**
+     * Delete Image in a Category
+     * 
+     * @return boolean 
+     */
+    public function deleteImage() 
+    {
         $image = Yii::getAlias('@webroot') . "/" . Yii::$app->controller->module->imagepath . $this->image;
 
         if (unlink($image)) {
@@ -164,17 +175,17 @@ class Items extends ActiveRecord {
         return false;
     }
 
-    //*
-    public function beforeSave($insert) {
+    public function beforeSave($insert) 
+    {
         parent::beforeSave($insert);
         if ($this->isNewRecord) {
-            $alias = new \fg\UrlAlias\models\UrlRule();
+            $alias = new UrlRule();
             $this->saveAlias($alias);
         } else {
             //get Items model from db :)
             $model = self::findOne($this->id);
             //get UrlAlias model with help alias by Items model :)
-            $alias = \fg\UrlAlias\models\UrlRule::find()->where(['slug' => $model->alias])->one();
+            $alias = UrlRule::find()->where(['slug' => $model->alias])->one();
             if (isset($alias)) {
                 $this->saveAlias($alias);
             }
@@ -182,9 +193,8 @@ class Items extends ActiveRecord {
         return true;
     }
 
-//*/
-
-    public function saveAlias($alias) {
+    public function saveAlias($alias) 
+    {
         $alias->slug = $this->alias;
         $alias->route = 'articles/items/view';
         $alias->status = 1;
@@ -196,23 +206,26 @@ class Items extends ActiveRecord {
         }
     }
 
-    public function beforeDelete() {
+    public function beforeDelete() 
+    {
         parent::beforeDelete();
         //get Items model from db :)
         $model = self::findOne($this->id);
         //get UrlAlias model with help alias by Items model :)
-        $alias = \fg\UrlAlias\models\UrlRule::find()->where(['slug' => $model->alias])->one();
+        $alias = UrlRule::find()->where(['slug' => $model->alias])->one();
         if (isset($alias)) {
             $alias->delete();
         }
         return TRUE;
     }
 
-    public function getCategory() {
+    public function getCategory() 
+    {
         return $this->hasOne(Categories::className(), ['id' => 'catid']);
     }
 
-    public function getAuthor() {
+    public function getAuthor() 
+    {
         return $this->hasOne(Authors::className(), ['id' => 'userid']);
     }
 

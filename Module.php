@@ -6,7 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 
 /**
- * Module of the articles
+ * Module of the articles.
  *
  * @author Robert Kuznetsov
  */
@@ -15,7 +15,14 @@ class Module extends \yii\base\Module
     /**
      * @var string
      */
-    public $controllerNamespace = 'app\modules\articles\controllers';
+    public $controllerNamespace = 'robot72\modules\articles\controllers';
+
+    /**
+     * Alias for view files
+     *
+     * @var string
+     */
+    public $viewPath = '@vendor/robot72/yii2-articles/views';
 
     /**
      * Configuration for
@@ -36,14 +43,14 @@ class Module extends \yii\base\Module
      *
      * @var string
      */
-    public $imagepath = "imgage/articles/";
+    public $imagepath = "upload/images/articles/";
 
     /**
      * Path for thumb images(small images)
      *
      * @var string
      */
-    public $thumbpath = "imgage/articles/thumb/";
+    public $thumbpath = "upload/images/articles/thumbs/";
 
     /**
      * 

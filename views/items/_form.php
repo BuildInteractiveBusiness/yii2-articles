@@ -5,9 +5,9 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
 // Load Kartik Libraries
-use kartik\widgets\ActiveForm;
-use kartik\widgets\FileInput;
-use kartik\widgets\DateTimePicker;
+use kartik\form\ActiveForm;
+use kartik\file\FileInput;
+use kartik\datetime\DateTimePicker;
 //use kartik\widgets\Select2;
 
 // Load Editors Libraries
@@ -15,8 +15,8 @@ use dosamigos\ckeditor\CKEditor;
 use vova07\imperavi\Widget;
 
 // Load Models
-use app\modules\articles\models\Categories;
-use app\modules\articles\models\Authors;
+use robot72\modules\articles\models\Categories;
+use robot72\modules\articles\models\Authors;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\articles\models\Items */
@@ -142,11 +142,8 @@ $imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->imagepath;
             ],
             'buttonSource' => true,            
         ],
-    ]);         
-            /*widget(CKEditor::className(), [
-        'options' => ['rows' => 2],
-        'preset' => 'basic'
-    */?>
+    ])->hint('то, что будет отображаться с списке статей, либо аннотация, либо начальная часть статьи');
+    ?>
     
     <?= $form->field($model, 'fulltext')->widget(Widget::className(), [
         'settings' => [
@@ -197,7 +194,7 @@ $imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->imagepath;
                 'imagemanager', 'table', 'fontcolor', 'fontsize', 'bufferbuttons', 'lineheight',
             ]
         ],       
-    ]); ?>
+    ])->hint('Весь текст статьи'); ?>
     
     <?= $form->field($model, 'published')->dropDownList([
             1 => 'Опубликовать',

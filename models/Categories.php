@@ -6,7 +6,8 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
-use himiklab\sitemap\behaviors\SitemapBehavior;
+use robot72\modules\sitemap\behaviors\SitemapBehavior;
+
 /**
  * This is the model class for table "article_categories".
  *
@@ -108,6 +109,16 @@ class Categories extends ActiveRecord
             'language' => 'Language',
             'branch' => 'Раздел (Ветка)',
         ];
+    }
+    
+    public function getBranchNames() 
+    {
+        $brancheNames = [
+            'Статьи',
+            'Объявления'
+        ];
+        
+        return $brancheNames;
     }
     
     public function getItem()

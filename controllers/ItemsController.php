@@ -98,6 +98,7 @@ class ItemsController extends Controller
             'scenario' => 'create',
         ]);
         $model->image = "";
+        $model->deleted = Items::NOT_DELETED;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {		
@@ -206,7 +207,7 @@ class ItemsController extends Controller
     {
         $m = $this->findModel($id);
         $m->published = 0;
-        $m->deleted = 1;
+        $m->deleted = Items::DELETED;
         if($m->validate() && $m->save())
         {
             return $this->redirect(['index']);

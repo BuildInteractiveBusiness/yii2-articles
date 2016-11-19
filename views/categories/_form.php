@@ -3,15 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-use robot72\modules\articles\models\Categories;
-
 /* @var $this yii\web\View */
 /* @var $model app\modules\articles\models\Categories */
 /* @var $form yii\widgets\ActiveForm */
-$branches = [
-    Categories::BRANCH_EXPERT_OPINION => 'Мнение экспертов', 
-    Categories::BRANCH_NEWS => 'Новости',
-];
+
 ?>
 
 <div class="categories-form">
@@ -28,7 +23,7 @@ $branches = [
     
     <?= $form->field($model, 'params')->textInput() ?>
     
-    <?= $form->field($model, 'branch')->dropDownList($branches) ?>
+    <?= $form->field($model, 'branch')->dropDownList($model->branchNames) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

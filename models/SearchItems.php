@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\articles\models;
+namespace robot72\modules\articles\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\articles\models\Items;
+use robot72\modules\articles\models\Items;
 
 /**
  * SearchItems represents the model behind the search form about `app\modules\articles\models\Items`.

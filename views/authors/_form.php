@@ -1,14 +1,15 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\widgets\ActiveForm;
-use kartik\widgets\FileInput;
+use kartik\form\ActiveForm;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\articles\models\Categories */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $model robot72\modules\articles\models\Categories */
+
 $imagetype = Yii::$app->controller->module->imagetype;
-$imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->imagepath;
+$imageurl  = Yii::$app->controller->imageUrl;
 ?>
 
 <div class="categories-form">

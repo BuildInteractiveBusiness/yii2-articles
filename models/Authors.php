@@ -5,7 +5,7 @@ namespace robot72\modules\articles\models;
 use Yii;
 
 /**
- * This is the model class for table "article_author".
+ * This is the model class for table "article_authors".
  *
  * @author Robert Kuznetsov
  *
@@ -19,7 +19,7 @@ class Authors extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'article_author';
+        return 'article_authors';
     }
 
     /**

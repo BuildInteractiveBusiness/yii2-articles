@@ -17,6 +17,29 @@ use robot72\modules\articles\models\Authors;
  */
 class AuthorsController extends Controller
 {
+    private $folder = 'authors/';
+
+    public function getThumbPath()
+    {
+        return Yii::getAlias('@webroot') . "/" .
+                Yii::$app->controller->module->thumbpath .
+                $this->folder;
+    }
+
+    public function getImagePath()
+    {
+        return Yii::getAlias('@webroot') . "/" .
+                Yii::$app->controller->module->imagepath .
+                $this->folder;
+    }
+
+    public function getImageUrl()
+    {
+        return Yii::$app->homeUrl .
+                Yii::$app->controller->module->imagepath .
+                $this->folder;
+    }
+
     public function behaviors()
     {
         return [
@@ -94,8 +117,8 @@ class AuthorsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // Upload Image and Thumb if is not Null
-            $imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->imagepath;
-            $thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->thumbpath;
+            $imagepath   = $this->imagePath;
+            $thumbpath   = $this->thumbPath;
             $imgnametype = Yii::$app->controller->module->imgname;
             $imgname     = $model->fullname;
 
@@ -206,12 +229,9 @@ class AuthorsController extends Controller
         $str = str_replace('_', ' ', $name);
 
         // remove any duplicate whitespace, and ensure all characters are alphanumeric
-        if($type == "img") 
-        {
+        if($type == "img") {
             $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('_',''), $str);
-        }
-        else 
-        {
+        } else {
             $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
         }
 
