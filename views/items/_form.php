@@ -105,7 +105,7 @@ $css = '
 $this->registerCss($css);
 
 $imagetype = Yii::$app->controller->module->imagetype;
-$imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->imagepath;
+$imageurl  = Yii::$app->controller->imageUrl;
 ?>
 
 <div class="categories-form">

@@ -58,6 +58,12 @@ class Module extends \yii\base\Module
      * @var string
      */
     public $imgname = 'casual';
+    
+    public $thumbWidthItem = 524;
+    
+    public $thumbHeightItem = 450;
+    
+    public $frontendAction = 'main/articles/view';
 
 
     public function init()

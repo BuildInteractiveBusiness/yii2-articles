@@ -22,18 +22,42 @@ use robot72\modules\articles\models\Authors;
  */
 class ItemsController extends Controller
 {
+    
+    private $folder = 'items/';
+
+    public function getThumbPath()
+    {
+        return Yii::getAlias('@webroot') . "/" .
+                Yii::$app->controller->module->thumbpath .
+                $this->folder;
+    }
+
+    public function getImagePath()
+    {
+        return Yii::getAlias('@webroot') . "/" .
+                Yii::$app->controller->module->imagepath .
+                $this->folder;
+    }
+
+    public function getImageUrl()
+    {
+        return Yii::$app->homeUrl .
+                Yii::$app->controller->module->imagepath .
+                $this->folder;
+    }
+    
     public function actions() {
         return [
             'images-get' => [
                 'class' => 'vova07\imperavi\actions\GetAction',
-                'url' => Yii::$app->homeUrl.'upload-image/articles/', 
-                'path' => '@webroot/upload-image/articles', 
+                'url' => $this->imageUrl, 
+                'path' => $this->imagePath, 
                 'type' => GetAction::TYPE_IMAGES,
             ], 
             'image-upload' => [
                 'class' => 'vova07\imperavi\actions\UploadAction',
-                'url' => Yii::$app->homeUrl.'upload-image/articles/', 
-                'path' => '@webroot/upload-image/articles',
+                'url' => $this->imageUrl, 
+                'path' => $this->imagePath,
             ],
         ];
     }
@@ -103,8 +127,8 @@ class ItemsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {		
             // Upload Image and Thumb if is not Null
-            $imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->imagepath;
-            $thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->thumbpath;
+            $imagepath   = $this->imagePath;
+            $thumbpath   = $this->thumbPath;
             $imgnametype = Yii::$app->controller->module->imgname;
             $imgname     = $model->title;
 
@@ -143,11 +167,11 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'create';
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // Upload Image and Thumb if is not Null
-            $imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->imagepath;
-            $thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->thumbpath;
+            $imagepath   = $this->imagePath;
+            $thumbpath   = $this->thumbPath;
             $imgnametype = Yii::$app->controller->module->imgname;
             $imgname     = $model->title;
 
@@ -429,7 +453,7 @@ class ItemsController extends Controller
         $file->saveAs($path);
 
         // Save Image Thumb
-        Image::thumbnail($imagepath.$name, 200, 100)->save($thumbpath.$name, ['quality' => 50]);	
+        Image::thumbnail($imagepath.$name, Yii::$app->controller->module->thumbWidthItem, Yii::$app->controller->module->thumbHeightItem)->save($thumbpath.$name, ['quality' => 50]);	
 
         return $name;
     }
@@ -445,9 +469,7 @@ class ItemsController extends Controller
         if($type == "img") 
         {
             $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('_',''), $str);
-        }
-        else 
-        {
+        } else {
             $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
         }
 

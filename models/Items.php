@@ -50,6 +50,9 @@ class Items extends ActiveRecord {
     const DELETED = 1;
     const NOT_DELETED = 0;
     
+    const PUBLISHED = 1;
+    const NOT_PUBLISHED = 0;
+    
     public function behaviors() 
     {
         return [
@@ -106,17 +109,14 @@ class Items extends ActiveRecord {
             [['language'], 'string', 'max' => 7],
             [['alias'], 'filter', 'filter' => 'trim'],
             [['alias'], 'filter', 'filter' => function($value) {
-            if (empty($value)) {
-                return Inflector::slug($this->title);
-            } else {
-                return Inflector::slug($value);
-            }
-        }],
-            [['alias'], 'unique'],
+                if (empty($value)) {
+                    return Inflector::slug($this->title);
+                } else {
+                    return Inflector::slug($value);
+                }
+            }],
+            [['alias'], 'unique', 'on' => ['create']],
             [['alias'], 'unique', 'targetClass' => UrlRule::className(), 'targetAttribute' => 'slug', 'on' => ['create']],
-                //[['alias'], 'unique', 'targetClass' => \app\modules\services\models\Items::className(), 'targetAttribute' => 'alias'],
-                //[['alias'], 'unique', 'targetClass' => \app\modules\analytics\models\Items::className(), 'targetAttribute' => 'alias'],
-                //[['alias'], 'required', 'enableClientValidation' => false],
         ];
     }
 
@@ -196,7 +196,7 @@ class Items extends ActiveRecord {
     public function saveAlias($alias) 
     {
         $alias->slug = $this->alias;
-        $alias->route = 'articles/items/view';
+        $alias->route = Yii::$app->controller->module->frontendAction;
         $alias->status = 1;
         $alias->redirect = 1;
         $alias->params = serialize(['id' => "$this->id"]);

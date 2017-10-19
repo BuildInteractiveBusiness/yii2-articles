@@ -1,5 +1,5 @@
 {
-    "name": "robot72/yii2-articles",
+    "name": "buildinteractivebusiness/yii2-articles",
     "type": "yii2-extension",
     "description": "Yii2 Artricles module. Manager articles and thier categories. Frontend for articles.",
     "keywords": ["yii2", "slug"],
@@ -14,13 +14,13 @@
         "php": ">=5.3.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-imagine": "^2.1",
-        "robot72/yii2-components": ">=0.1.0",
-        "robot72/yii2-url-alias": ">=0.1.0",
-        "robot72/yii2-sitemap": "dev-master",
+        "buildinteractivebusiness/yii2-components": "dev-master",
+        "buildinteractivebusiness/yii2-url-alias": "dev-master",
+        "buildinteractivebusiness/yii2-sitemap": "dev-master",
         "kartik-v/yii2-widget-activeform": "v1.4.*",
         "kartik-v/yii2-widget-fileinput": "v1.0.*",
         "kartik-v/yii2-widget-datetimepicker": "v1.4.*",
-        "vova07/yii2-imperavi-widget": "1.2.*"        
+        "vova07/yii2-imperavi-widget": "1.2.*"
     },
     "autoload"   : {
         "psr-4": {

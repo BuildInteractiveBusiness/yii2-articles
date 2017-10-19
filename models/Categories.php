@@ -36,6 +36,9 @@ class Categories extends ActiveRecord
 {
     const BRANCH_EXPERT_OPINION = 0;
     const BRANCH_NEWS = 1;
+    
+    const PUBLISHED = 1;
+    const NOT_PUBLISHED = 0;
 
     /**
      * @inheritdoc
