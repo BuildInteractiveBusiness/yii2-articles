@@ -175,21 +175,33 @@ class Items extends ActiveRecord {
         return false;
     }
 
-    public function beforeSave($insert) 
+    /**
+     * Save url address into UrlAlias extension
+     *
+     * @param $insert
+     *
+     * @return return boolean
+     */
+    public function beforeSave($insert)
     {
         parent::beforeSave($insert);
+
         if ($this->isNewRecord) {
             $alias = new UrlRule();
+            $this->alias = 'articles/' . $this->alias;
             $this->saveAlias($alias);
         } else {
-            //get Items model from db :)
+            //get Items model from db
             $model = self::findOne($this->id);
-            //get UrlAlias model with help alias by Items model :)
+            //get UrlAlias model with help alias by Items model
             $alias = UrlRule::find()->where(['slug' => $model->alias])->one();
+            $this->alias = str_replace('articles', 'articles/', $this->alias);
+
             if (isset($alias)) {
                 $this->saveAlias($alias);
             }
         }
+
         return true;
     }
 
